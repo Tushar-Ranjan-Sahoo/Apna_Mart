@@ -16,8 +16,11 @@ exports.registerUser = catchAsyncErrors(async(req,res,next)=>{
             url:"profilepicurl",
         },
     });
+    const token = user.getJWTToken();
     res.status(200).json({
         sucess: true,
-        user,
-    })
-})
+        token,
+    });
+});
+
+//Login a user
