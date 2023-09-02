@@ -14,3 +14,13 @@ exports.isAutjenticatedUser = catchAsyncErrors(async(req,res,next)=>{
     req.user = await User.findById(decodeddData.id);
     next();
 }) ;
+
+exports.authorizeRoles = (...roles) => {
+    return (req, res, next) => {
+        if(!roles.includes(req.user.role)){
+            return next(new ErrorHander(`Role: ${req.user.role} is not allowed to  access this resource`,403)
+        );}
+        next();
+
+    };
+};
